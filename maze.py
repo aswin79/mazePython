@@ -61,6 +61,36 @@ class gridSolve:
                   return 1              
         print(" Need to backtrack from",(x,y),"!")    
         return 0        
+    
+    # simple BFS maze walker. can go in 4 dirs, right, down, up, left        
+    def BFS(self):
+        x=self.startPtNP[0]
+        y=self.startPtNP[1]
+        frontier=Queue()
+        frontier.put(self.startPtNP)
+        
+        while (not(frontier.empty())):
+            self.startPtNP=frontier.get();
+            x=self.startPtNP[0]
+            y=self.startPtNP[1]
+            if (self.grid[x][y] ==2):
+              print("Done! with steps:",self.steps)
+              return 1
+            else:
+              self.steps = self.steps+ 1
+            for xi in range (-1,2) :
+                for yi in range (-1,2) :
+                    xN=x+xi    
+                    yN=y+yi
+                    if (self.isValid(xi,yi)==0):
+                        continue;
+                    print(x,y,"=>",xN,yN)
+                    self.visitedNP[xN][yN]  =1
+                    nextPtNP=(xN,yN)
+                    frontier.put(nextPtNP)
+        return 0
+    
+    
 g = gridSolve()
 start = process_time()
 
